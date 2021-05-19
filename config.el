@@ -6,8 +6,8 @@
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
-(setq user-full-name "John Doe"
-      user-mail-address "john@doe.com")
+(setq user-full-name "Allan Braun"
+      user-mail-address "allanvobraun@gmail.com")
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
@@ -52,5 +52,26 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+;;
+;; KEY BINDIGS
 (when (fboundp 'windmove-default-keybindings)
   (windmove-default-keybindings))
+
+(add-hook 'js-mode-hook
+          (lambda ()
+            (define-key js2-mode-map (kbd "C-c C-e") 'nodejs-repl-send-line)
+            (define-key js2-mode-map (kbd "C-c C-r") 'nodejs-repl-send-region)
+            (define-key js2-mode-map (kbd "C-c C-c") 'nodejs-repl-send-buffer)
+            (define-key js2-mode-map (kbd "C-c C-z") 'nodejs-repl-switch-to-repl)))
+
+;; CONFIGS
+(setq auto-save-default t
+      make-backup-files t)
+(setq confirm-kill-emacs nil)
+(setq doom-font (font-spec :family "Fira Code" :size 13)
+      doom-variable-pitch-font (font-spec :family "Alegreya" :size 13))
+(use-package! fira-code-mode
+  :custom (fira-code-mode-disabled-ligatures '(":" "==="))
+  :hook prog-mode)
+;; (use-package fira-code-mode
+;;   :config (global-fira-code-mode))
